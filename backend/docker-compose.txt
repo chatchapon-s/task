@@ -1,0 +1,40 @@
+version: '3.7'
+
+services: //กำหนด services ต่างๆที่ใช้
+  db:
+    image: mysql:latest //กำหนด image ที่ใช้
+    container_name: mysql_db //กำหนดชื่อ container
+    command: --default-authentication-plugin=mysql_native_password
+//กำหนด command คำสั่ง
+    environment:
+      MYSQL_ROOT_PASSWORD: root //ตั้งค่า mysql root password
+      MYSQL_DATABASE: webdb //ตั้งค่าชื่อ databse
+    ports: //กำหนด port
+      - "8700:3306"
+    volumes: //กำหนดที่อยู่ของ container
+      - mysql_data:/var/lib/mysql
+    networks: //กำหนด network
+      - weblab700
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: root
+    ports:
+      - "8701:80"
+    depends_on: //กำหนดว่าต้องรอให้ db run ให้เสร็จก่อนถึงจะทำงาน
+      - db 
+    networks:
+      - weblab700
+
+networks: //สร้าง network
+  weblab700:
+    driver: bridge
+
+volumes: //สร้างที่อยู่
+  mysql_data:
+    driver: local

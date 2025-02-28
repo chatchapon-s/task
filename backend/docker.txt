@@ -1,0 +1,35 @@
+docker run nginx  คือการ run docker
+
+docker ps --all แสดงว่ามีอะไร run อยู่บ้างที่ port ไหน
+
+docker stop <CONTAINERID>or<NAMES> คือการหยุด run
+
+docker rm <CONTAINERID>or<NAMES> เช็คว่ามีตัวไหน run อยู่บ้าง
+
+docker run --name mrnginx -d -p 8888:80 nginx คือการ run docker ชื่อ mrnginx ที่ port 8888 (-d คือการ run แบบไม่ค้าง)
+
+docker pull mysql:5.7 โหลด mysql
+docker pull phpmydamin/phpmydamin โหลด phpmydamin
+
+docker images เช็ค docker ทั้งหมดที่มี
+
+docker network create web คือ การสร้าง network ชื่อ web
+docker network ls เช็คว่ามี network ตัวไหนบ้าง
+
+docker run --name mysql --network web -e MYSQL_ROOT_PASSWORD=1111 -e MYSQL_DATABASE=web_db -e MYSQL_USER=wordpress -e MYSQL_PASSWORD=wordpress -d mysql:5.7
+
+<--name mysql ชื่อ server>
+<--network web ชื่อ network คือ web>
+<-e MYSQL_ROOT_PASSWORD=1111 password root>
+<MYSQL_DATABASE=web_db database ชื่อ web_db>
+<MYSQL_USER=wordpress user คือ wordpress>
+<MYSQL_PASSWORD=wordpress password คือ wordpress>
+
+docker run --name pma --network web -p 8888:80 -e PMA_ARBITRARY=1 -d phpmyadmin/phpmyadmin
+
+
+web ที่โหลดข้อมูล
+https://github.com/suriyapi/web101
+
+docker-compose up ทำการ run compose ที่เขียนไว้
+docker-compose down ทำการ stop docker เมื่อทำการ run ใหม่ฐานข้อมูลจะยังคงอยู่
